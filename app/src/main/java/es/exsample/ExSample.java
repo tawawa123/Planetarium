@@ -47,6 +47,8 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
     int[] time = new int[6];
 
     private Timer timer;
+    public static float centerX = 0;
+    public static float centerY = 0;
 
     public String[] DataBase_Star(String paramString) {
         String[] arrayOfString1 = new String[2];
@@ -271,8 +273,11 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
     }
 
     public double[] dispXY(double paramDouble1, double paramDouble2) {
-        paramDouble1 = 480 * Math.sin(Math.toRadians((90.0D - paramDouble1) / 2.0D));
-        return new double[] { Math.sin(Math.toRadians(paramDouble2)) * paramDouble1 + 1000.0D, Math.cos(Math.toRadians(paramDouble2)) * paramDouble1 + 1200.0D };
+        paramDouble1 = 700 * Math.sin(Math.toRadians((90.0D - paramDouble1) / 2.0D));
+        return new double[] {
+                Math.sin(Math.toRadians(paramDouble2)) * paramDouble1 + 550,
+                Math.cos(Math.toRadians(paramDouble2)) * paramDouble1 + 1000
+        };
     }
 
     public final float[] getCompass() {

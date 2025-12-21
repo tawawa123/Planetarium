@@ -18,8 +18,19 @@ public class DrawStar extends View {
 
     int[] rd = new int[1000];
 
+    public static float centerX = 0;
+    public static float centerY = 0;
+
     public DrawStar(Context paramContext, AttributeSet paramAttributeSet) {
         super(paramContext, paramAttributeSet);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        ExSample.centerX = w / 2f;
+        ExSample.centerY = h / 2f;
     }
 
     protected void onDraw(Canvas canvas) {
@@ -34,7 +45,7 @@ public class DrawStar extends View {
 
         this.paint.setAntiAlias(false);
         this.paint.setColor(Color.argb(255, 0, 32, 255));
-        canvas.drawCircle(1000.0F, 1200.0F, 500.0F, this.paint);
+        canvas.drawCircle(550.0F, 1000.0F, 510.0F, this.paint);
         int b;
         for (b = 0; b < Planetarium.star_counter; b++) {
             this.paint.setColor(Color.argb(255, 255, 255, 255));

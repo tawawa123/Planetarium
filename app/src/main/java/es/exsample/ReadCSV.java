@@ -67,7 +67,7 @@ public class ReadCSV extends AppCompatActivity {
                     }
 
                     InputStream inputStream2 = paramContext.getResources().getAssets().open("cons_nameData.csv");
-                    InputStreamReader inputStreamReader2 = new InputStreamReader(inputStream2, "UTF-8");
+                    InputStreamReader inputStreamReader2 = new InputStreamReader(inputStream2, "Shift-jis");
                     BufferedReader bufferedReader2 = new BufferedReader(inputStreamReader2);
 
                     while (true) {
