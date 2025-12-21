@@ -322,7 +322,7 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
     }
 
     public int magnitude(double paramDouble) {
-        byte b;
+        int b;
         if (paramDouble < 0.0D) {
             b = 7;
         } else if (paramDouble < 1.0D) {
@@ -391,7 +391,7 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
 
     @SuppressLint("ResourceType")
     public boolean onTouchEvent(MotionEvent paramMotionEvent) {
-        byte b;
+        int b;
         double[] arrayOfDouble1 = this.pla.get_xn();
         double[] arrayOfDouble2 = this.pla.get_yn();
         String[] arrayOfString = this.pla.get_coname();
@@ -495,7 +495,7 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
             arrayOfDouble10[b1] = arrayOfDouble21[1];
         }
         int b2;
-        for (b2 = 0; b2 < b1; b2++) {
+        for (b2 = 0; b2 < b1 && b2 < 500; b2++) {
             arrayOfDouble19 = dispXY(arrayOfDouble7[b2], arrayOfDouble9[b2]);
             arrayOfDouble11[b2] = arrayOfDouble19[0];
             arrayOfDouble12[b2] = arrayOfDouble19[1];

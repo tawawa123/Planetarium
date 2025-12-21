@@ -35,14 +35,14 @@ public class DrawStar extends View {
         this.paint.setAntiAlias(false);
         this.paint.setColor(Color.argb(255, 0, 32, 255));
         canvas.drawCircle(1000.0F, 1200.0F, 500.0F, this.paint);
-        byte b;
+        int b;
         for (b = 0; b < Planetarium.star_counter; b++) {
             this.paint.setColor(Color.argb(255, 255, 255, 255));
             this.rd[b] = this.main.magnitude(Planetarium.MG[b]);
             this.paint.setStrokeWidth(3.0F);
             canvas.drawOval((float)Planetarium.XX[b] - (this.rd[b] / 2), (float)Planetarium.YY[b] - (this.rd[1] / 2), (float)Planetarium.XX[b] + (this.rd[b] / 2), (float)Planetarium.YY[b] + (this.rd[b] / 2), this.paint);
         }
-        for (b = 0; b < this.pla.get_line_counter(); b++) {
+        for (b = 0; b < this.pla.get_line_counter() && b < 500; b++) {
             this.paint.setStrokeWidth(1.0F);
             this.paint.setColor(Color.argb(255, 255, 255, 255));
             canvas.drawLine((float)Planetarium.x1[b], (float)Planetarium.y1[b], (float)Planetarium.x2[b], (float)Planetarium.y2[b], this.paint);
