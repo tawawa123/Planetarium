@@ -50,6 +50,10 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
     public static float centerX = 0;
     public static float centerY = 0;
 
+    private TextView timeText;
+    private TextView latText;
+    private TextView lonText;
+
     public String[] DataBase_Star(String paramString) {
         String[] arrayOfString1 = new String[2];
         SQLiteDatabase sQLiteDatabase = SQLiteDatabase.openOrCreateDatabase("data/data/" + getPackageName() + "/Sample.db", null);
@@ -354,14 +358,24 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
         this.pla = new Planetarium();
         this.selectStar = new String[2];
         this.sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+
         updateLocation();
         ReadCSV.parse(getApplicationContext());
         Julian();
         star_culc();
         setContentView(R.layout.activity_main);
-        //TextView textView = (TextView)findViewById(R.layout.activity_main);
-        String[] arrayOfString = getTimer();
-        //textView.setText("" + this.Loc[0] + " " + this.Loc[1] + "\n" + arrayOfString[0] + " " + arrayOfString[1]);
+
+        this.timeText = findViewById(R.id.text_time);
+        this.latText  = findViewById(R.id.text_lat);
+        this.lonText  = findViewById(R.id.text_lon);
+
+        String timeStr = timer.get_Ydate() + " " + timer.get_Dtime();
+        this.timeText.setText(timeStr);
+
+        // 緯度・経度
+        this.latText.setText("Lat : " + String.format("%.2f", this.Loc[0]));
+        this.lonText.setText("Lon : " + String.format("%.2f", this.Loc[1]));
+
     }
 
     public void onLocationChanged(Location paramLocation) {}
@@ -394,34 +408,45 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
         }
     }
 
-    @SuppressLint("ResourceType")
-    public boolean onTouchEvent(MotionEvent paramMotionEvent) {
-        int b;
-        double[] arrayOfDouble1 = this.pla.get_xn();
-        double[] arrayOfDouble2 = this.pla.get_yn();
-        String[] arrayOfString = this.pla.get_coname();
-        switch (paramMotionEvent.getAction()) {
-            case 1:
-                for (b = 0; b < this.pla.get_con_counter(); b++) {
-                    if (arrayOfDouble1[b] >= (paramMotionEvent.getX() + 400.0F) && arrayOfDouble1[b] <= (paramMotionEvent.getX() + 520.0F) && arrayOfDouble2[b] >= (paramMotionEvent.getY() - 50.0F) && arrayOfDouble2[b] <= (paramMotionEvent.getY() - 10.0F)) {
-                        System.out.println(arrayOfString[b]);
-                        String[] arrayOfString1 = DataBase_Star("'" + arrayOfString[b] + "'");
-                        System.out.println(arrayOfString1[0] + "\n" + arrayOfString1[1]);
-                        LinearLayout linearLayout = (LinearLayout)findViewById(R.layout.activity_main);
-                        TranslateAnimation translateAnimation = new TranslateAnimation(0.0F, 0.0F, 0.0F, -linearLayout.getHeight());
-                        translateAnimation.setDuration(500L);
-                        translateAnimation.setFillAfter(true);
-                        linearLayout.startAnimation((Animation)translateAnimation);
-                        TextView textView = (TextView)findViewById(R.layout.activity_main);
-                        textView.setText(arrayOfString1[0]);
-                        textView.startAnimation((Animation)new TranslateAnimation(0.0F, 0.0F, 0.0F, -textView.getHeight()));
-                        textView = (TextView)findViewById(R.layout.activity_main);
-                        textView.setText(arrayOfString1[1]);
-                        textView.startAnimation((Animation)new TranslateAnimation(0.0F, 0.0F, 0.0F, -textView.getHeight()));
-                        ((TextView)findViewById(R.layout.activity_main)).setText("" + this.Loc[0] + " " + this.Loc[1] + "\n" + this.timer.get_Ydate() + " " + this.timer.get_Dtime());
-                    }
+    public boolean onTouchEvent(MotionEvent event) {
+        double[] xn = pla.get_xn();
+        double[] yn = pla.get_yn();
+        String[] coname = pla.get_coname();
+
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+
+            float touchX = event.getX();
+            float touchY = event.getY();
+
+            for (int i = 0; i < pla.get_con_counter(); i++) {
+
+                // 星座タップ判定（元ロジック尊重）
+                if (xn[i] >= touchX - 40 &&
+                        xn[i] <= touchX + 40 &&
+                        yn[i] >= touchY - 150 &&
+                        yn[i] <= touchY - 120) {
+
+                    // ---- DB取得 ----
+                    String[] starInfo = DataBase_Star("'" + coname[i] + "座'");
+                    System.out.println(starInfo[1]);
+
+                    // ---- UI取得 ----
+                    LinearLayout panel = findViewById(R.id.info_panel);
+                    TextView nameText = findViewById(R.id.constellation_name);
+                    TextView infoText = findViewById(R.id.constellation_info);
+
+                    // ---- テキスト反映 ----
+                    nameText.setText(starInfo[0]);
+                    infoText.setText(starInfo[1]);
+
+                    // ---- パネル表示アニメーション ----
+                    panel.animate()
+                            .translationY(0)
+                            .setDuration(1000)
+                            .start();
+                    break;
                 }
-                break;
+            }
         }
         return true;
     }
