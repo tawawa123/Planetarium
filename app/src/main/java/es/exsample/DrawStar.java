@@ -53,10 +53,11 @@ public class DrawStar extends View {
             this.paint.setStrokeWidth(3.0F);
             canvas.drawOval((float)Planetarium.XX[b] - (this.rd[b] / 2), (float)Planetarium.YY[b] - (this.rd[1] / 2), (float)Planetarium.XX[b] + (this.rd[b] / 2), (float)Planetarium.YY[b] + (this.rd[b] / 2), this.paint);
         }
-        for (b = 0; b < this.pla.get_line_counter() && b < 500; b++) {
+        for (b = 0; b < this.pla.get_line_counter(); b++) {
             this.paint.setStrokeWidth(1.0F);
             this.paint.setColor(Color.argb(255, 255, 255, 255));
-            canvas.drawLine((float)Planetarium.x1[b], (float)Planetarium.y1[b], (float)Planetarium.x2[b], (float)Planetarium.y2[b], this.paint);
+            //System.out.println(this.pla.get_x1());
+            canvas.drawLine((float)this.pla.x1[b], (float)this.pla.y1[b], (float)this.pla.x2[b], (float)this.pla.y2[b], this.paint);
         }
         for (b = 0; b < Planetarium.con_counter; b++) {
             this.paint.setStyle(Paint.Style.FILL_AND_STROKE);

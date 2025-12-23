@@ -56,10 +56,10 @@ public class Planetarium {
         hLe = new double[500];
         ALs = new double[500];
         ALe = new double[500];
-        x1 = new double[500];
-        y1 = new double[500];
-        x2 = new double[500];
-        y2 = new double[500];
+        x1 = new double[1000];
+        y1 = new double[1000];
+        x2 = new double[1000];
+        y2 = new double[1000];
         nh = new double[60];
         nA = new double[60];
         xn = new double[60];

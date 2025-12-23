@@ -76,7 +76,7 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
         arrayOfString2[15] = "INSERT INTO site(name, info) VALUES ('おひつじ座', 'おひつじ座は、平原にたたずむ羊の姿をした秋の星座。黄道12星座のひとつ。')";
         arrayOfString2[16] = "INSERT INTO site(name, info) VALUES ('オリオン座', 'オリオン座は、ギリシャ神話の狩人オリーオーンの姿を表した星座。')";
         arrayOfString2[17] = "INSERT INTO site(name, info) VALUES ('がか座', 'がか座は、絵を立てかける画架の形をした星座。画架は絵を描くときにキャンバスを立てかける三脚のような道具のこと。')";
-        arrayOfString2[18] = "INSERT INTO site(name, info) VALUES ('カシオペア座', 'カシオペア座は、古代エチオピア王妃カシオペアの姿をした秋の星座。地域によっては、形が錨に見えることから錨座とも呼ばれる。')";
+        arrayOfString2[18] = "INSERT INTO site(name, info) VALUES ('カシオペヤ座', 'カシオペヤ座は、古代エチオピア王妃カシオペヤの姿をした秋の星座。地域によっては、形が錨に見えることから錨座とも呼ばれる。')";
         arrayOfString2[19] = "INSERT INTO site(name, info) VALUES ('かじき座', 'かじき座は、鋭く長い吻を持つ魚「かじき」の姿をした星座。もともとは「シイラ座」、または「金魚座」だったものが、いつの間にか「かじき座」と呼ばれるようになった。')";
         arrayOfString2[20] = "INSERT INTO site(name, info) VALUES ('かに座', 'かに座は、その名の通りかにの姿をした星座。黄道12星座のひとつ。')";
         arrayOfString2[21] = "INSERT INTO site(name, info) VALUES ('かみのけ座', 'かみのけ座は、星団をかみの毛の束に見立てた星座で、明るい星を結んで作らない珍しい星座。')";
@@ -226,7 +226,6 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
         arrayOfString = getTimer();
         this.timer.set_Ydate(Integer.parseInt(arrayOfString[0]));
         this.timer.set_Dtime(Integer.parseInt(arrayOfString[1]));
-        System.out.println(this.timer.get_Dtime());
         this.timer.set_LAT(this.Loc[0]);
         this.timer.set_loc(this.Loc[1]);
         int i = this.timer.get_Ydate();
@@ -428,6 +427,7 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
 
                     // ---- DB取得 ----
                     String[] starInfo = DataBase_Star("'" + coname[i] + "座'");
+                    System.out.println(coname[i]);
                     System.out.println(starInfo[1]);
 
                     // ---- UI取得 ----
@@ -478,14 +478,14 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
         double[] arrayOfDouble5 = new double[1000];
         double[] arrayOfDouble6 = new double[1000];
         int[] arrayOfInt = new int[1000];
-        double[] arrayOfDouble7 = new double[500];
-        double[] arrayOfDouble8 = new double[500];
-        double[] arrayOfDouble9 = new double[500];
-        double[] arrayOfDouble10 = new double[500];
-        double[] arrayOfDouble11 = new double[500];
-        double[] arrayOfDouble12 = new double[500];
-        double[] arrayOfDouble13 = new double[500];
-        double[] arrayOfDouble14 = new double[500];
+        double[] arrayOfDouble7 = new double[1000];
+        double[] arrayOfDouble8 = new double[1000];
+        double[] arrayOfDouble9 = new double[1000];
+        double[] arrayOfDouble10 = new double[1000];
+        double[] arrayOfDouble11 = new double[1000];
+        double[] arrayOfDouble12 = new double[1000];
+        double[] arrayOfDouble13 = new double[1000];
+        double[] arrayOfDouble14 = new double[1000];
         double[] arrayOfDouble15 = new double[60];
         double[] arrayOfDouble16 = new double[60];
         double[] arrayOfDouble17 = new double[60];
@@ -515,7 +515,7 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
             double[] arrayOfDouble21 = horizon(saisa_hosei(yogen_AD(lineDataList.get_linRae(), lineDataList.get_linDce())));
             if (arrayOfDouble21[0] < 0.0D)
                 continue;
-            if (b1 >= 500){
+            if (b1 >= 1000){
                 break;
             }
 
@@ -525,7 +525,7 @@ public class ExSample extends Activity implements SensorEventListener, LocationL
             arrayOfDouble10[b1] = arrayOfDouble21[1];
         }
         int b2;
-        for (b2 = 0; b2 < b1 && b2 < 500; b2++) {
+        for (b2 = 0; b2 < b1; b2++) {
             arrayOfDouble19 = dispXY(arrayOfDouble7[b2], arrayOfDouble9[b2]);
             arrayOfDouble11[b2] = arrayOfDouble19[0];
             arrayOfDouble12[b2] = arrayOfDouble19[1];
